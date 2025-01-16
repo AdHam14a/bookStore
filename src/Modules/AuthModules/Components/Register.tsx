@@ -163,8 +163,8 @@ export default function Register() {
     displayEmpty 
   >
     <MenuItem value="" disabled>Select a role</MenuItem> 
-    <MenuItem value="admin">Admin</MenuItem>
-    <MenuItem value="customer">Customer</MenuItem>
+    <MenuItem value="Admin">Admin</MenuItem>
+    <MenuItem value="Customer">Customer</MenuItem>
   </Select>
   {errors.role && (
     <FormHelperText error>{errors?.role?.message}</FormHelperText>

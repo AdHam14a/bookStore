@@ -6,7 +6,11 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { Avatar, Button } from "@mui/material";
+import EmailSharpIcon from "@mui/icons-material/EmailSharp";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { Avatar, Button, TextField } from "@mui/material";
 import mainBook from "../../../assets/Images/MainBook.png";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -20,6 +24,10 @@ import book1 from "../../../assets/Images/book1.png";
 import book2 from "../../../assets/Images/book2.png";
 import book3 from "../../../assets/Images/book3.png";
 import book4 from "../../../assets/Images/book4.png";
+import article1 from "../../../assets/Images/article1.jpg";
+import article2 from "../../../assets/Images/article2.jpg";
+import article3 from "../../../assets/Images/article3.jpg";
+import manyBooks from "../../../assets/Images/manyBooks.png";
 import { Pagination } from "@mui/material";
 
 export default function Home() {
@@ -621,14 +629,398 @@ export default function Home() {
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "center", mt: "20px" ,mb:"50px"}}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: "20px",
+            mb: "50px",
+          }}
+        >
           <Pagination
             count={totalPagesBook}
             page={currentPageBook}
             onChange={handlePageChangeBook}
             color="primary"
-            
           />
+        </Box>
+      </Box>
+      <Box>
+        <Box
+          sx={{
+            flexGrow: 1,
+            mt: "120px",
+            backgroundColor: "#FCEBEA",
+            borderRadius: "15px",
+          }}
+        >
+          <Box
+            sx={{
+              py: "50px",
+              px: "85px",
+              display: "flex",
+              justifyContent: "space-around",
+              mb: "30px",
+            }}
+          >
+            <Box>
+              <Typography
+                variant="h4"
+                component="h4"
+                sx={{ color: "#463C74", fontWeight: "700", mt: "30px" }}
+              >
+                All books are 50% off now!
+                <br /> Don't miss such a deal!
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{ color: "#463C74", fontWeight: "100", mt: "15px" }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                <br /> eu feugiat amet, libero ipsum enim pharetra hac.
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  width: "300px",
+                  mt: "25px",
+                }}
+              >
+                <Box>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{ color: "#ED553B", fontWeight: "600" }}
+                  >
+                    768
+                  </Typography>
+                  <Typography variant="h6" component="h6">
+                    Days
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{ color: "#ED553B", fontWeight: "600" }}
+                  >
+                    01
+                  </Typography>
+                  <Typography variant="h6" component="h6">
+                    Hours
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{ color: "#ED553B", fontWeight: "600" }}
+                  >
+                    27
+                  </Typography>
+                  <Typography variant="h6" component="h6">
+                    Mins
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{ color: "#ED553B", fontWeight: "600" }}
+                  >
+                    55
+                  </Typography>
+                  <Typography variant="h6" component="h6">
+                    Secs
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+            <Box>
+              <img src={manyBooks} alt="books" />
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: "#FCEBEA",
+          display: "flex",
+          justifyContent: "center",
+          height: "400px",
+          position: "relative",
+        }}
+      >
+        <Box
+          sx={{
+            backgroundColor: "#ED553B",
+            width: "80%",
+            height: "65%",
+            display: "flex",
+            pt: "35px",
+            flexDirection: "column",
+            textAlign: "center",
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="h4"
+            sx={{ color: "#FFFFFF", fontWeight: "600" }}
+          >
+            Subscibe to Our Newsletter
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "#FFFFFF", fontWeight: "200", mt: "20px" }}
+          >
+            Sed eu feugiat amet,libero ipsum enim pharetra hac dolor sit amet,
+            <br /> consectetur. Elit adipiscing enim pharetra hac.
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: "#FFF",
+            borderRadius: "10px",
+            width: "30%",
+            position: "absolute",
+            top: "255px",
+            padding: "10px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <EmailSharpIcon
+            sx={{
+              color: "action.active",
+              mr: 1,
+              height: "1.5rem",
+              width: "1.5rem",
+            }}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
+            placeholder="johndoe@gmail.com"
+            sx={{
+              flexGrow: 1,
+              mr: 1,
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "transparent",
+                },
+                "&:hover fieldset": {
+                  borderColor: "transparent",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "transparent",
+                },
+              },
+            }}
+          />
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ color: "#FFFFFF", backgroundColor: "#ED553B" }}
+          >
+            Subscribe
+          </Button>
+        </Box>
+      </Box>
+      <Box sx={{ backgroundColor: "#F7FCFC", mt: "70px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            textAlign: "center",
+            paddingTop: "35px",
+          }}
+        >
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "200", color: "#7A7A7A" }}
+          >
+            Read out articles
+          </Typography>
+          <Typography
+            variant="h4"
+            component="h4"
+            sx={{ fontWeight: "400", color: "#173F5F" }}
+          >
+            Latest Articles
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            mb: "70px",
+            mt: "50px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box sx={{display:"flex",gap:"40px"}}>
+            <Box
+              sx={{
+                width: "300px",
+                height: "auto",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                padding: "10px",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+              }}
+            >
+              <img
+                src={article1}
+                alt="article"
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "100", marginTop: "10px", fontSize: "12px" }}
+              >
+                2 Aug, 2021
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "400", color: "#173F5F" }}
+              >
+                Reading books always makes the moments happy
+              </Typography>
+              <hr style={{ width: "100%", marginTop: "10px" }} />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  width: "100%",
+                  gap: "10px",
+                }}
+              >
+                <FacebookOutlinedIcon />
+                <TwitterIcon />
+                <InstagramIcon />
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                width: "300px",
+                height: "auto",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                padding: "10px",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+              }}
+            >
+              <img
+                src={article2}
+                alt="article"
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "100", marginTop: "10px", fontSize: "12px" }}
+              >
+                2 Aug, 2021
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "400", color: "#173F5F" }}
+              >
+                Reading books always makes the moments happy
+              </Typography>
+              <hr style={{ width: "100%", marginTop: "10px" }} />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  width: "100%",
+                  gap: "10px",
+                }}
+              >
+                <FacebookOutlinedIcon />
+                <TwitterIcon />
+                <InstagramIcon />
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                width: "300px",
+                height: "auto",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                padding: "10px",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+              }}
+            >
+              <img
+                src={article3}
+                alt="article"
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "100", marginTop: "10px", fontSize: "12px" }}
+              >
+                2 Aug, 2021
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: "400", color: "#173F5F" }}
+              >
+                Reading books always makes the moments happy
+              </Typography>
+              <hr style={{ width: "100%", marginTop: "10px" }} />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  width: "100%",
+                  gap: "10px",
+                }}
+              >
+                <FacebookOutlinedIcon />
+                <TwitterIcon />
+                <InstagramIcon />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+
+        <Box sx={{ display: "flex", justifyContent: "center", mt: "35px" ,mb:"100px"}}>
+          <Button
+            variant="outlined"
+            sx={{ color: "#173F5F", borderColor: "#173F5F" }}
+          >
+            View More
+            <ArrowRightAltIcon sx={{ marginLeft: "10px" }} />
+          </Button>
         </Box>
       </Box>
     </>

@@ -11,6 +11,8 @@ import {
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import AuthContext from "../../../Context/AuthContext";
 
 export default function Login() {
   interface user {
@@ -18,9 +20,14 @@ export default function Login() {
     password: string;
   }
 
-  const navigate = useNavigate();
+  interface AuthContextType {
+    saveUserData: () => void;
+  }
 
-  const onSubmit = async(data:any) => {
+  const navigate = useNavigate();
+  const { saveUserData } = useContext(AuthContext) as AuthContextType;
+
+  const onSubmit = async (data: any) => {
     try {
       const response = await axios.post(
         "https://upskilling-egypt.com:3007/api/auth/login",
@@ -28,6 +35,8 @@ export default function Login() {
       );
       toast.success("Success");
       console.log(response?.data);
+      localStorage.setItem("userToken", response?.data?.accessToken);
+      saveUserData();
       navigate("/dashboard");
     } catch (error) {
       toast.error("Failed");
@@ -40,8 +49,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm<user>();
-  
-  
+
   return (
     <>
       <Grid sx={{ width: "100%" }}>

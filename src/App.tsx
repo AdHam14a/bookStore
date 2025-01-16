@@ -10,6 +10,7 @@ import Register from "./Modules/AuthModules/Components/Register";
 import Masterlayout from "./Modules/Shared/Masterlayout";
 import Home from "./Modules/MasterModules/Components/Home";
 import { ToastContainer } from "react-toastify";
+import Books from "./Modules/MasterModules/Components/Books";
 
 function App() {
   const routes = createBrowserRouter([
@@ -31,7 +32,8 @@ function App() {
       element: <Masterlayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Home /> }
+        { index: true, element: <Home /> },
+        {path:"books",element:<Books/>}
       ]
     }
   ]);

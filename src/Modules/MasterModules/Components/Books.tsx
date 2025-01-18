@@ -23,13 +23,31 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AddIcon from "@mui/icons-material/Add";
 import GridViewIcon from "@mui/icons-material/GridView";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Books() {
+  const navigate = useNavigate();
   const bookImages = [book1, book2, book3, book4];
   const [books, setBooks] = useState([]);
   const [currentPageBooks, setCurrentPageBooks] = useState(1);
   const [itemsPerPageBooks, setItemsPerPageBooks] = useState(3);
   const [viewType, setViewType] = useState("grid");
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const addToBasket = async (id, quantity) => {
+    try {
+      console.log(id);
+      const data = { id, quantity };
+      const res = await axios.post(
+        `https://upskilling-egypt.com:3007/api/basket/item`,
+        data
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getBooks = async () => {
     try {
@@ -74,6 +92,7 @@ export default function Books() {
               sx={{ fontSize: "0.950rem" }}
             >
               <DashboardIcon
+                onClick={() => navigate("/dashboard")}
                 sx={{
                   backgroundColor: "#ED553B",
                   color: "#FFFFFF",
@@ -98,6 +117,7 @@ export default function Books() {
               sx={{ mr: 3, cursor: "pointer", "&:hover": { color: "#EF6B4A" } }}
             />
             <ShoppingBagOutlinedIcon
+              onClick={() => navigate("/dashboard/cart")}
               sx={{ mr: 3, cursor: "pointer", "&:hover": { color: "#EF6B4A" } }}
             />
             <FavoriteBorderRoundedIcon
@@ -287,24 +307,32 @@ export default function Books() {
               display: viewType === "grid" ? "grid" : "block",
               gridTemplateColumns:
                 viewType === "grid" ? "repeat(3, 1fr)" : "1fr",
-              gap: viewType === "list" ? 1 : 2, 
+              gap: viewType === "list" ? 1 : 2,
             }}
           >
             {currentItemsBooks.map((ele, index) => (
               <Box
-                key={ele?.id}
+                key={ele?._id}
                 sx={{
                   textAlign: "center",
                   marginBottom: viewType === "list" ? 1 : 2,
+                  position: "relative",
+                  "&:hover": {
+                    cursor: "pointer",
+                  },
                 }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
                 <img
                   src={bookImages[index % bookImages.length]}
                   alt="image"
                   style={{
-                    width: viewType === "grid" ? "100%" : "80%", 
+                    width: viewType === "grid" ? "100%" : "80%",
                     borderRadius: "15px",
-                    cursor: "pointer",
+                    transition: "transform 0.3s",
+                    transform:
+                      hoveredIndex === index ? "scale(1.05)" : "scale(1)",
                   }}
                 />
                 <Typography
@@ -330,10 +358,32 @@ export default function Books() {
                     color: "#ED553B",
                     fontSize: viewType === "list" ? "14px" : "16px",
                     mt: "12px",
-                  }} 
+                  }}
                 >
                   ${ele?.price}
                 </Typography>
+
+                {hoveredIndex === index && (
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      console.log("Adding to basket:", ele);
+                      addToBasket(ele?._id, 1);
+                    }}
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      backgroundColor: "#EF6B4A",
+                      "&:hover": {
+                        backgroundColor: "#Ee6B4c",
+                      },
+                    }}
+                  >
+                    Add to Cart
+                  </Button>
+                )}
               </Box>
             ))}
           </Box>

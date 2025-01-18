@@ -10,7 +10,8 @@ import EmailSharpIcon from "@mui/icons-material/EmailSharp";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Avatar, Button, TextField } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Avatar, Badge, Button, TextField } from "@mui/material";
 import mainBook from "../../../assets/Images/MainBook.png";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,8 +30,18 @@ import article2 from "../../../assets/Images/article2.jpg";
 import article3 from "../../../assets/Images/article3.jpg";
 import manyBooks from "../../../assets/Images/manyBooks.png";
 import { Pagination } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Home() {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const navigate = useNavigate();
+  const loggingOut = () => {
+    localStorage.removeItem("userToken");
+    toast.success("Logged out");
+    navigate("/");
+  };
+
   // Categories
   const catImages = [cat1, cat2, cat3];
   const [cat, setCat] = useState([]);
@@ -67,7 +78,6 @@ export default function Home() {
   const getBooks = async () => {
     try {
       const res = await axios.get("https://upskilling-egypt.com:3007/api/book");
-      console.log(res?.data?.data);
       setbooks(res?.data?.data);
     } catch (error) {
       console.log(error);
@@ -149,6 +159,10 @@ export default function Home() {
               <Typography
                 variant="h6"
                 component="div"
+                onClick={() => {
+                  navigate("books");
+                  window.scrollTo(0, 0);
+                }}
                 sx={{
                   fontSize: "0.950rem",
                   mr: 3,
@@ -212,7 +226,9 @@ export default function Home() {
                   },
                 }}
               />
+
               <ShoppingBagOutlinedIcon
+                onClick={() => navigate("cart")}
                 sx={{
                   mr: 3,
                   cursor: "pointer",
@@ -221,7 +237,21 @@ export default function Home() {
                   },
                 }}
               />
+
               <FavoriteBorderRoundedIcon
+                sx={{
+                  mr: 3,
+                  cursor: "pointer",
+                  "&:hover": {
+                    color: "#EF6B4A",
+                  },
+                }}
+              />
+              <LogoutIcon
+                onClick={() => {
+                  loggingOut();
+                  window.scrollTo(0, 0);
+                }}
                 sx={{
                   cursor: "pointer",
                   "&:hover": {
@@ -480,11 +510,22 @@ export default function Home() {
           sx={{ display: "flex", justifyContent: "space-evenly", mt: "35px" }}
         >
           {currentItemsBooks.map((ele, index) => (
-            <Box key={ele?.id}>
+            <Box
+              key={ele?.id}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              sx={{ position: "relative" }} // Added position relative
+            >
               <img
                 src={bookImages[index % bookImages.length]}
                 alt="image"
-                style={{ width: "350px", borderRadius: "15px" }}
+                style={{
+                  width: "350px",
+                  borderRadius: "15px",
+                  transition: "transform 0.3s",
+                  transform:
+                    hoveredIndex === index ? "scale(1.05)" : "scale(1)",
+                }}
               />
               <Typography
                 sx={{
@@ -516,9 +557,27 @@ export default function Home() {
               >
                 ${ele?.price}
               </Typography>
+              {hoveredIndex === index && (
+                <Button
+                  variant="contained"
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "#EF6B4A",
+                    "&:hover": {
+                      backgroundColor: "#Ee6B4c",
+                    },
+                  }}
+                >
+                  Add to Cart
+                </Button>
+              )}
             </Box>
           ))}
         </Box>
+
         <Pagination
           count={totalPagesBooks}
           page={currentPageBooks}
@@ -539,6 +598,10 @@ export default function Home() {
           }}
         >
           <Typography
+            onClick={() => {
+              navigate("books");
+              window.scrollTo(0, 0);
+            }}
             sx={{ cursor: "pointer", display: "flex", alignItems: "center" }}
           >
             View all books
@@ -618,6 +681,10 @@ export default function Home() {
                   ${book?.price}
                 </Typography>
                 <Button
+                  onClick={() => {
+                    navigate("books");
+                    window.scrollTo(0, 0);
+                  }}
                   variant="outlined"
                   sx={{ color: "#393280", borderColor: "#393280", mt: "30px" }}
                 >
@@ -862,7 +929,7 @@ export default function Home() {
             justifyContent: "center",
           }}
         >
-          <Box sx={{display:"flex",gap:"40px"}}>
+          <Box sx={{ display: "flex", gap: "40px" }}>
             <Box
               sx={{
                 width: "300px",
@@ -1013,7 +1080,14 @@ export default function Home() {
           </Box>
         </Box>
 
-        <Box sx={{ display: "flex", justifyContent: "center", mt: "35px" ,mb:"100px"}}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: "35px",
+            mb: "100px",
+          }}
+        >
           <Button
             variant="outlined"
             sx={{ color: "#173F5F", borderColor: "#173F5F" }}

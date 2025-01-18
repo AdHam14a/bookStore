@@ -11,8 +11,15 @@ import Masterlayout from "./Modules/Shared/Masterlayout";
 import Home from "./Modules/MasterModules/Components/Home";
 import { ToastContainer } from "react-toastify";
 import Books from "./Modules/MasterModules/Components/Books";
+import Protected from "./Modules/Protected/Protected";
+import Cart from "./Modules/MasterModules/Components/Cart";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 function App() {
+  const stripe = loadStripe(
+    "pk_test_51QhxCwHoNTJAb3JhjPFfAJJ3KdbbJU7MwGJ74C93WF5h5rSTEPjzdKewevpJxvkdDShCJxRe74YuxjXdnsIao0Er00tDLJySdX"
+  );
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -29,19 +36,28 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <Masterlayout />,
+      element: (
+        <Protected>
+          <Masterlayout />
+        </Protected>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
-        {path:"books",element:<Books/>}
-      ]
-    }
+        { path: "books", element: <Books /> },
+        { path: "cart", element: <Cart /> },
+      ],
+    },
   ]);
 
-  return (<>
-    <RouterProvider router={routes} />
-    <ToastContainer/>
-  </>);
+  return (
+    <>
+      <Elements stripe={stripe}>
+        <RouterProvider router={routes} />
+      </Elements>
+      <ToastContainer />
+    </>
+  );
 }
 
 export default App;

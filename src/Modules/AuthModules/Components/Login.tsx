@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useContext } from "react";
-import AuthContext from "../../../Context/AuthContext";
+import { AuthContext } from "../../../Context/AuthContext";
 
 export default function Login() {
   interface user {
@@ -33,13 +33,12 @@ export default function Login() {
         "https://upskilling-egypt.com:3007/api/auth/login",
         data
       );
-      toast.success("Success");
-      console.log(response?.data);
-      localStorage.setItem("userToken", response?.data?.accessToken);
+      toast.success("Login Successful");
+      localStorage.setItem("userToken", response?.data?.data?.accessToken);
       saveUserData();
       navigate("/dashboard");
     } catch (error) {
-      toast.error("Failed");
+      toast.error("Login Failed");
       console.log(error);
     }
   };
@@ -86,15 +85,8 @@ export default function Login() {
           helperText={errors.email?.message}
           {...register("email", { required: "This is required" })}
         />
-        <Typography
-          variant="body2"
-          sx={{
-            mt: 1,
-            color: "#757575",
-          }}
-        ></Typography>
         <TextField
-          label="password"
+          label="Password"
           required
           fullWidth
           id="password"
@@ -109,14 +101,6 @@ export default function Login() {
           helperText={errors.password?.message}
           {...register("password", { required: "This is required" })}
         />
-        <Typography
-          variant="body2"
-          sx={{
-            mt: 1,
-            color: "#757575",
-          }}
-        ></Typography>
-
         <Grid container alignItems="center">
           <Grid item xs>
             <FormControlLabel
@@ -135,7 +119,7 @@ export default function Login() {
                 cursor: "pointer",
               }}
             >
-              Forgot Password ?
+              Forgot Password?
             </Typography>
           </Grid>
         </Grid>
@@ -160,7 +144,6 @@ export default function Login() {
           onClick={() => {
             navigate("/register");
           }}
-          type="submit"
           fullWidth
           variant="outlined"
           sx={{
